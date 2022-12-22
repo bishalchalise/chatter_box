@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 
 class AppInput extends StatelessWidget {
@@ -9,7 +10,7 @@ class AppInput extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.grey.shade200,
+        color:Theme.of(context).colorScheme.background,
         borderRadius: BorderRadius.circular(10.0),
       ),
       padding: const EdgeInsets.symmetric(

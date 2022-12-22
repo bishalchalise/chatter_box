@@ -1,8 +1,8 @@
-import 'package:chatter_box/features/authentication/views/screens/register_screen.dart';
 import 'package:chatter_box/features/shared/views/widgets/app_input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../../../utilities/app_routes.dart';
 import '../../../shared/views/widgets/app_button.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -31,11 +31,11 @@ class LoginScreen extends StatelessWidget {
                     const SizedBox(
                       height: 20.0,
                     ),
-                    _loginButtonBuilder(),
+                    _loginButtonBuilder(context),
                     const SizedBox(
                       height: 20.0,
                     ),
-                    _forgetPasswordBuilder()
+                    _forgetPasswordBuilder(context)
                   ],
                 ),
               ),
@@ -98,12 +98,17 @@ class LoginScreen extends StatelessWidget {
     );
   }
 
-  Widget _loginButtonBuilder() {
+  Widget _loginButtonBuilder(final BuildContext context) {
     return Row(
       children: [
         Expanded(
           child: AppButton(
-            onPressed: () {},
+            onPressed: () {
+               Navigator.pushNamed(
+              context,
+              AppRoutes.chatsListScreen,
+            ); 
+            },
             value: "Login",
           ),
         ),
@@ -111,15 +116,15 @@ class LoginScreen extends StatelessWidget {
     );
   }
 
-  Widget _forgetPasswordBuilder() {
+  Widget _forgetPasswordBuilder(final BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: const [
+      children: [
         Text(
           'Forgot Password? ',
           style: TextStyle(
             fontWeight: FontWeight.bold,
-            color: Colors.deepPurple,
+            color: Theme.of(context).colorScheme.primary,
           ),
         ),
       ],
@@ -138,19 +143,15 @@ class LoginScreen extends StatelessWidget {
         ),
         GestureDetector(
           onTap: () {
-            Navigator.push(
+            Navigator.pushNamed(
               context,
-              MaterialPageRoute(
-                builder: (context) {
-                  return const RegisterScreen();
-                },
-              ),
-            );
+              AppRoutes.registerScreen,
+            ); 
           },
-          child: const Text(
+          child: Text(
             'Register Now!',
             style: TextStyle(
-              color: Colors.deepPurple,
+              color: Theme.of(context).colorScheme.primary,
               fontWeight: FontWeight.bold,
             ),
           ),

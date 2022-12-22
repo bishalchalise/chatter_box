@@ -34,7 +34,6 @@ class RegisterScreen extends StatelessWidget {
                     const SizedBox(
                       height: 20.0,
                     ),
-                   
                   ],
                 ),
               ),
@@ -116,8 +115,6 @@ class RegisterScreen extends StatelessWidget {
     );
   }
 
- 
-
   Widget _registerBuilder(final BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -132,10 +129,10 @@ class RegisterScreen extends StatelessWidget {
           onTap: () {
             Navigator.pop(context);
           },
-          child: const Text(
+          child:  Text(
             'Login',
             style: TextStyle(
-              color: Colors.deepPurple,
+              color: Theme.of(context).colorScheme.primary,
               fontWeight: FontWeight.bold,
             ),
           ),
