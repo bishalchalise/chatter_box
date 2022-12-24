@@ -1,5 +1,6 @@
 import 'package:chatter_box/features/authentication/views/screens/login_screen.dart';
 import 'package:chatter_box/features/authentication/views/screens/register_screen.dart';
+import 'package:chatter_box/features/chat/views/screens/chat_convo_screen.dart';
 import 'package:chatter_box/features/chat/views/screens/chats_list_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -14,6 +15,8 @@ class AppRouter {
         return _buildRoute(settings, const RegisterScreen());
         case AppRoutes.chatsListScreen:
         return _buildRoute(settings, const ChatsListScreen());  
+        case AppRoutes.chatConvoScreen:
+        return _buildRoute(settings, const ChatConvoScreen());  
       default: 
        return _buildRoute(settings, const LoginScreen()); 
     }

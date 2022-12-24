@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class AvatarBuilder extends StatelessWidget {
@@ -16,10 +17,10 @@ class AvatarBuilder extends StatelessWidget {
         borderRadius: BorderRadius.circular(
           10.0,
         ),
-        image:  DecorationImage(
-          image: NetworkImage(imgUrl)
-      
-        )
+        image: DecorationImage(
+          image: CachedNetworkImageProvider(imgUrl),
+          fit: BoxFit.cover,
+        ),
       ),
     );
   }
