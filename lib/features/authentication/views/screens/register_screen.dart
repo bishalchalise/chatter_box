@@ -1,6 +1,8 @@
+import 'package:chatter_box/features/authentication/viewmodels/auth_vm.dart';
 import 'package:chatter_box/features/shared/views/widgets/app_input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 
 import '../../../shared/views/widgets/app_button.dart';
 
@@ -9,42 +11,55 @@ class RegisterScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(
-            20.0,
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Expanded(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    _headerBuilder(),
-                    const SizedBox(
-                      height: 20.0,
-                    ),
-                    _inputBuilder(),
-                    const SizedBox(
-                      height: 20.0,
-                    ),
-                    _loginButtonBuilder(),
-                    const SizedBox(
-                      height: 20.0,
-                    ),
-                  ],
+    return ChangeNotifierProvider<AuthVm>(
+      create: (context) {
+        return AuthVm(context: context);
+      },
+      builder: ((context, child) {
+        final vm = Provider.of<AuthVm>(context);
+        return Scaffold(
+          body: Center(
+            child: Padding(
+              padding: const EdgeInsets.all(
+                20.0,
+              ),
+              child: SingleChildScrollView(
+                child: SizedBox(
+                  height: MediaQuery.of(context).size.height,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Expanded(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            _headerBuilder(),
+                            const SizedBox(
+                              height: 20.0,
+                            ),
+                            _inputBuilder(vm),
+                            const SizedBox(
+                              height: 20.0,
+                            ),
+                            _loginButtonBuilder(vm),
+                            const SizedBox(
+                              height: 20.0,
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      _registerBuilder(context),
+                    ],
+                  ),
                 ),
               ),
-              const SizedBox(
-                height: 10,
-              ),
-              _registerBuilder(context),
-            ],
+            ),
           ),
-        ),
-      ),
+        );
+      }),
     );
   }
 
@@ -79,22 +94,25 @@ class RegisterScreen extends StatelessWidget {
     );
   }
 
-  Widget _inputBuilder() {
+  Widget _inputBuilder(final AuthVm vm) {
     return Column(
-      children: const [
+      children: [
         AppInput(
+          controller: vm.nameController,
           hintText: 'Username',
         ),
-        SizedBox(
+        const SizedBox(
           height: 10.0,
         ),
         AppInput(
+          controller: vm.emailController,
           hintText: 'Email Address',
         ),
-        SizedBox(
+        const SizedBox(
           height: 10.0,
         ),
         AppInput(
+          controller: vm.passwordController,
           isPassword: true,
           hintText: 'Password',
         ),
@@ -102,12 +120,14 @@ class RegisterScreen extends StatelessWidget {
     );
   }
 
-  Widget _loginButtonBuilder() {
+  Widget _loginButtonBuilder(final AuthVm vm) {
     return Row(
       children: [
         Expanded(
           child: AppButton(
-            onPressed: () {},
+            onPressed: () {
+              vm.register();
+            },
             value: "Register",
           ),
         ),
@@ -129,7 +149,7 @@ class RegisterScreen extends StatelessWidget {
           onTap: () {
             Navigator.pop(context);
           },
-          child:  Text(
+          child: Text(
             'Login',
             style: TextStyle(
               color: Theme.of(context).colorScheme.primary,

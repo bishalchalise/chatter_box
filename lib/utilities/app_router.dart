@@ -2,6 +2,7 @@ import 'package:chatter_box/features/authentication/views/screens/login_screen.d
 import 'package:chatter_box/features/authentication/views/screens/register_screen.dart';
 import 'package:chatter_box/features/chat/views/screens/chat_convo_screen.dart';
 import 'package:chatter_box/features/chat/views/screens/chats_list_screen.dart';
+import 'package:chatter_box/wrapper.dart';
 import 'package:flutter/material.dart';
 
 import 'app_routes.dart';
@@ -9,6 +10,8 @@ import 'app_routes.dart';
 class AppRouter {
   Route onGenerateRoute(final RouteSettings settings) {
     switch (settings.name) {
+       case AppRoutes.wrapper:
+        return _buildRoute(settings, const Wrapper());
       case AppRoutes.loginScreen:
         return _buildRoute(settings, const LoginScreen());
       case AppRoutes.registerScreen:
