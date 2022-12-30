@@ -1,3 +1,4 @@
+
 import 'package:chatter_box/features/authentication/viewmodels/auth_vm.dart';
 import 'package:chatter_box/features/shared/views/widgets/app_input.dart';
 import 'package:flutter/material.dart';
@@ -34,6 +35,10 @@ class RegisterScreen extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             _headerBuilder(),
+                            const SizedBox(
+                              height: 20.0,
+                            ),
+                            _imageBuilder(vm),
                             const SizedBox(
                               height: 20.0,
                             ),
@@ -91,6 +96,36 @@ class RegisterScreen extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+
+  Widget _imageBuilder(final AuthVm vm) {
+    return GestureDetector(
+      onTap: () {
+        vm.pickImage();
+      },
+      child: Container(
+        width: 100.0,
+        height: 100.0,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: Colors.grey.shade300,
+          image: vm.photo == null
+              ? null
+              : DecorationImage(
+                  image: FileImage(
+                    vm.photo!),
+                  fit: BoxFit.cover,
+                ),
+        ),
+        child: vm.photo !=null ? null 
+        :  const Center(
+          child: Icon(
+            Icons.image_rounded,
+            color: Colors.grey,
+          ),
+        ),
+      ),
     );
   }
 
