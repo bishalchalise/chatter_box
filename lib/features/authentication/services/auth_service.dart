@@ -43,7 +43,7 @@ class AuthService {
     }
   }
 
-// login user with email and password
+ // login user with email and password
   static Future<String?> loginUser({
     required final String email,
     required final String password,
@@ -70,7 +70,7 @@ class AuthService {
     }
   }
 
-// logout user
+ // logout user
 
   static void logoutUser() async {
     try {
@@ -81,21 +81,23 @@ class AuthService {
     }
   }
 
-//save user details in fire store
+ //save user details in fire store
 
   static Future<void> saveUserDetailsToFirestore({
     required final String uid,
     required final String name,
     required final String email,
     required final String photo,
+
   }) async {
     try {
-      final usersRef = _fs.collection('users').doc();
+      final usersRef = _fs.collection('users').doc(uid);
       await usersRef.set({
         'uid': uid,
         'name': name,
         'email': email,
         'photo': photo,
+        'created_at': Timestamp.now(),
       });
     } catch (e) {
       debugPrint(e.toString());

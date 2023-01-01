@@ -1,7 +1,7 @@
-import 'package:chatter_box/features/authentication/services/auth_service.dart';
 import 'package:chatter_box/features/chat/views/widgets/chats_list_widgets/chats_list.dart';
 import 'package:flutter/material.dart';
 
+import '../../../authentication/services/auth_service.dart';
 import '../../../shared/views/widgets/app_input.dart';
 
 class ChatsListScreen extends StatelessWidget {
@@ -35,6 +35,9 @@ class ChatsListScreen extends StatelessWidget {
             IconButton(
               onPressed: () {
                 AuthService.logoutUser();
+                // ChatService.sendMessage(
+                 
+                // );
               },
               icon: const Icon(
                 Icons.logout_rounded,

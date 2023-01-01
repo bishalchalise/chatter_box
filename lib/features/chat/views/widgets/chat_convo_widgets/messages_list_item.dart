@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 
 import '../../../../shared/views/widgets/avatar_builder.dart';
+import '../../../model/message_model.dart';
 
 class MessagesListItem extends StatelessWidget {
+  final Message message; 
    final bool isMymessage; 
-  const MessagesListItem({super.key, required this.isMymessage, });
+  const MessagesListItem({super.key, required this.isMymessage,
+  required this.message,  
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +53,7 @@ class MessagesListItem extends StatelessWidget {
             border:  Border.all(color:isMymessage ? primaryColor : Colors.transparent,)
       ),
       child:  Text(
-        "kfhdkfd f;gmfgmknd kjdfdf jdfbdbf kdfbdf fln fkdjf",
+       message.text,
         style: TextStyle(color: isMymessage ? primaryColor : Colors.white, fontSize: 12.0, ),
       ),
     );
