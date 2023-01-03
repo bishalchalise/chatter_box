@@ -5,7 +5,8 @@ class AppUser {
   final String photo;
 
   AppUser(
-      {required this.id,
+      {
+      required this.id,
       required this.name,
       required this.email,
       required this.photo});

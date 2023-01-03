@@ -58,7 +58,10 @@ class ChatService {
         .collection('chats')
         .doc('text_chat_id')
         .collection('messages')
-        .orderBy('created_at', descending: true,)
+        .orderBy(
+          'created_at',
+          descending: true,
+        )
         .snapshots()
         .map(
       (snapshot) {
@@ -80,5 +83,54 @@ class ChatService {
         return messages;
       },
     );
+  }
+
+// create stream of chats collection
+
+  static Stream<List<Chat>> chatsList() {
+    return _fs.collection('chats').snapshots().map((chatSnap) {
+      List<Chat> chats = [];
+      for (final document in chatSnap.docs) {
+        final data = document.data();
+        final chat = Chat(
+          id: data['id'],
+          userIds: List<String>.from(data['user_ids']),
+          unreadMessageCount: data['unread_message_count'],
+          lastMessageId: data['last_message_id'],
+          createdAt: data['created_at'],
+          updatedAt: data['updated_at'],
+        );
+        chats.add(chat);
+      }
+
+      return chats;
+    });
+  }
+
+// Create stream of  message
+
+  static Stream<Message?> message({required final String messageId}) {
+    return _fs
+        .collection('chats')
+        .doc('text_chat_id')
+        .collection('messages')
+        .doc(messageId)
+        .snapshots()
+        .map((messageSnap) {
+      final data = messageSnap.data();
+      if (data != null) {
+        final message = Message(
+          id: data['id'],
+          senderId: data['sender_id'],
+          recieverIds: List<String>.from(data['reciever_ids']),
+          text: data['text'],
+          files: List<String>.from(data['files']),
+          createdAt: data['created_at'],
+        );
+        return message;
+      } else {
+        return null;
+      }
+    });
   }
 }

@@ -10,18 +10,23 @@ import 'app_routes.dart';
 class AppRouter {
   Route onGenerateRoute(final RouteSettings settings) {
     switch (settings.name) {
-       case AppRoutes.wrapper:
+      case AppRoutes.wrapper:
         return _buildRoute(settings, const Wrapper());
       case AppRoutes.loginScreen:
         return _buildRoute(settings, const LoginScreen());
       case AppRoutes.registerScreen:
         return _buildRoute(settings, const RegisterScreen());
-        case AppRoutes.chatsListScreen:
-        return _buildRoute(settings, const ChatsListScreen());  
-        case AppRoutes.chatConvoScreen:
-        return _buildRoute(settings, const ChatConvoScreen());  
-      default: 
-       return _buildRoute(settings, const LoginScreen()); 
+      case AppRoutes.chatsListScreen:
+        return _buildRoute(settings, const ChatsListScreen());
+      case AppRoutes.chatConvoScreen:
+        final argument = settings.arguments as ChatConvoScreenArgs;
+        return _buildRoute(
+            settings,
+            ChatConvoScreen(
+              user: argument.user,
+            ));
+      default:
+        return _buildRoute(settings, const LoginScreen());
     }
   }
 

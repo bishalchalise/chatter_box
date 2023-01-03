@@ -161,7 +161,7 @@ class RegisterScreen extends StatelessWidget {
         Expanded(
           child: AppButton(
             onPressed: () {
-              vm.register();
+              vm.registerUser();
             },
             value: "Register",
           ),

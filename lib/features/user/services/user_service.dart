@@ -10,12 +10,14 @@ class UserService {
       final data = userSnap.data();
       if (data != null) {
         final appUser = AppUser(
-          id: data['id'],
+          id: data['uid'],
           name: data['name'],
           email: data['email'],
-          photo: data['photo'],
+          photo: data['photo'] ?? '',
         );
+        
         return appUser;
+       
       } else {
         return null;
       }

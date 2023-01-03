@@ -1,6 +1,6 @@
 import 'dart:io';
-
 import 'package:chatter_box/features/authentication/services/auth_service.dart';
+import 'package:chatter_box/features/shared/services/storage_service.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -28,12 +28,19 @@ class AuthVm extends ChangeNotifier {
     );
   }
 
-  void register() async {
+  void registerUser() async {
+    //register photo to firebase storage
+    String? url;
+    if (_photo != null) {
+       url = await StorageService.uploadFile(file: _photo!);
+    }
+
+    //register new user
     final uid = await AuthService.registerUser(
       name: _nameController.text,
       email: _emailController.text,
       password: _passwordController.text,
-      photo: '',
+      photo: url,
     );
     if (uid != null) {
       // ignore: use_build_context_synchronously
