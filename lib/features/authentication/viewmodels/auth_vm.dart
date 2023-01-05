@@ -32,7 +32,10 @@ class AuthVm extends ChangeNotifier {
     //register photo to firebase storage
     String? url;
     if (_photo != null) {
-       url = await StorageService.uploadFile(file: _photo!);
+      final currentDate = DateTime.now();
+      url = await StorageService.uploadFile(
+          path: 'users/profile_picture/${currentDate.microsecondsSinceEpoch}.jpg',
+          file: _photo!);
     }
 
     //register new user

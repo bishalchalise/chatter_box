@@ -24,6 +24,7 @@ class AppRouter {
             settings,
             ChatConvoScreen(
               user: argument.user,
+              chatId: argument.chatId,
             ));
       default:
         return _buildRoute(settings, const LoginScreen());

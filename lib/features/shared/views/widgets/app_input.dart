@@ -1,21 +1,25 @@
-
 import 'package:flutter/material.dart';
 
 class AppInput extends StatelessWidget {
   final bool isPassword;
-  final TextEditingController? controller; 
+  final TextEditingController? controller;
   final String hintText;
-  const AppInput({super.key, 
-  required this.hintText, 
-  this.isPassword=false, 
-   this.controller,
+  final Function(String)? onchanged;
+
+  const AppInput({
+    super.key,
+    required this.hintText,
+    this.isPassword = false,
+    this.controller,
+    this.onchanged, 
+    
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color:Theme.of(context).colorScheme.background,
+        color: Theme.of(context).colorScheme.background,
         borderRadius: BorderRadius.circular(10.0),
       ),
       padding: const EdgeInsets.symmetric(
@@ -31,6 +35,12 @@ class AppInput extends StatelessWidget {
           border: InputBorder.none,
           hintText: hintText,
         ),
+        onChanged: (val) {
+        if (onchanged !=null) {
+            onchanged!(val); 
+        }
+     
+        },
       ),
     );
   }

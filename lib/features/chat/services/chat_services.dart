@@ -8,10 +8,11 @@ class ChatService {
 // send message to recievers
   static void sendMessage({
     required final Message message,
+     final String? chatId,
   }) async {
     try {
-      final currentTIme = DateTime.now().millisecondsSinceEpoch;
-      final chatsRef = _fs.collection('chats').doc('text_chat_id');
+      final currentTime = DateTime.now().millisecondsSinceEpoch;
+      final chatsRef = _fs.collection('chats').doc(chatId);
       final messageRef = chatsRef.collection('messages').doc();
 
       message.id = messageRef.id;
@@ -34,8 +35,8 @@ class ChatService {
         userIds: userIds,
         unreadMessageCount: 0,
         lastMessageId: message.id!,
-        createdAt: currentTIme,
-        updatedAt: currentTIme,
+        createdAt: currentTime,
+        updatedAt: currentTime,
       );
 
       await chatsRef.set({
@@ -53,10 +54,10 @@ class ChatService {
   }
 
 //create stream of message collection
-  static Stream<List<Message>> messagesList() {
+  static Stream<List<Message>> messagesList({required final String chatId}) {
     return _fs
         .collection('chats')
-        .doc('text_chat_id')
+        .doc(chatId)
         .collection('messages')
         .orderBy(
           'created_at',
@@ -109,10 +110,13 @@ class ChatService {
 
 // Create stream of  message
 
-  static Stream<Message?> message({required final String messageId}) {
+  static Stream<Message?> message({
+    required final String chatId,
+    required final String messageId,
+  }) {
     return _fs
         .collection('chats')
-        .doc('text_chat_id')
+        .doc(chatId)
         .collection('messages')
         .doc(messageId)
         .snapshots()

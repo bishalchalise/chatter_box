@@ -32,8 +32,14 @@ class ChatsListItem extends StatelessWidget {
               return GestureDetector(
                 behavior: HitTestBehavior.opaque,
                 onTap: () {
-                  Navigator.pushNamed(context, AppRoutes.chatConvoScreen,
-                      arguments: ChatConvoScreenArgs(user: user));
+                  Navigator.pushNamed(
+                    context,
+                    AppRoutes.chatConvoScreen,
+                    arguments: ChatConvoScreenArgs(
+                      user: user,
+                      chatId: chat.id,
+                    ),
+                  );
                 },
                 child: Padding(
                   padding: const EdgeInsets.all(15.0),
@@ -80,7 +86,10 @@ class ChatsListItem extends StatelessWidget {
           height: 5.0,
         ),
         StreamBuilder(
-          stream: ChatService.message(messageId: chat.lastMessageId),
+          stream: ChatService.message(
+            messageId: chat.lastMessageId,
+            chatId: chat.id,
+          ),
           builder: (context, snap) {
             if (snap.hasData) {
               final message = snap.data;
